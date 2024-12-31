@@ -38,6 +38,11 @@ form.addEventListener('submit', (e) => {
         const loggedIn = {
             email: email.value,
             password: password.value,
+            username: existingUser?.username,
+            address: existingUser?.address,
+            phonenumber: existingUser?.phonenumber,
+            about: existingUser?.about,
+
         }
     
     localStorage.setItem('LocalLoggedIn', JSON.stringify(loggedIn))

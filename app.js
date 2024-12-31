@@ -5,11 +5,9 @@ if (loggedInUser) {
 
     navList.innerHTML = `Logout`
     navList.setAttribute('onclick', 'handleLogout()')
-    navList.classList.add('btn-danger')
 } else {
-    navList.classList.add('btn-success')
     navList.setAttribute('onclick', 'handleSignIn()')
-    navList.innerHTML = `SignIn`
+    navList.innerHTML = `Sign In`
 }
 
 function handleSignIn () {
