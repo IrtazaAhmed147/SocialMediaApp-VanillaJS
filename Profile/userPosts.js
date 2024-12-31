@@ -1,33 +1,10 @@
-let loggedInUser = JSON.parse(localStorage.getItem('LocalLoggedIn'))
-let Allposts = JSON.parse(localStorage.getItem('LocalPostStorage'))
-let navList = document.getElementById('nav-List')
-
-if (loggedInUser) {
-
-    navList.innerHTML = `Logout`
-    navList.setAttribute('onclick', 'handleLogout()')
-} else {
-    window.location.href = './login/login.html'
-    navList.setAttribute('onclick', 'handleSignIn()')
-    navList.innerHTML = `Sign In`
-}
-
-function handleSignIn() {
-    location.href = '../login/login.html'
-}
-function handleLogout() {
-    localStorage.removeItem('LocalLoggedIn')
-    location.href = '../login/login.html'
-}
-
-
-// show post
 
 let postBox = document.getElementById('postBox')
-
-if (Allposts) {
-    console.log('chala')
-    Allposts?.forEach((post) => {
+let userPosts = posts?.filter((post)=> {
+    return post.email === loggedInUser.email
+})
+if (posts) {
+    userPosts?.forEach((post) => {
         let div = document.createElement('div')
         let date = new Date(post.createdAt)
         let min = date.getMinutes()
@@ -49,11 +26,20 @@ if (Allposts) {
         <h5 class="card-title">${post.title} </h5>
         <p class="card-text">${post.description}</p>
         <p class="card-text">${hour}:${min}:${sec} - ${datee}/${month + 1}/${year}</p>
-        
+        <button onclick='handleDelete(${post.createdAt})' class='btn btn-danger'>Delete</button>
+        <button class='btn btn-success'>Edit</button>
         </div>
         
         </div>
         </div>`
         postBox.appendChild(div)
     })
+}
+
+function handleDelete(id) {
+   let permission =  confirm('do you really want to delete this post?')
+   if(!permission) return
+   console.log(permission)
+
+
 }

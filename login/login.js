@@ -42,6 +42,7 @@ form.addEventListener('submit', (e) => {
             address: existingUser?.address,
             phonenumber: existingUser?.phonenumber,
             about: existingUser?.about,
+            image: existingUser?.image,
 
         }
     
