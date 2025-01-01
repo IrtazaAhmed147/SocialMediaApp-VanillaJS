@@ -1,6 +1,9 @@
+let editTitle = document.getElementById('editTitle')
+let editImage = document.getElementById('editImage')
+let editDescription = document.getElementById('editDescription')
 
 let postBox = document.getElementById('postBox')
-let userPosts = posts?.filter((post)=> {
+let userPosts = posts?.filter((post) => {
     return post.email === loggedInUser.email
 })
 if (posts) {
@@ -27,7 +30,7 @@ if (posts) {
         <p class="card-text">${post.description}</p>
         <p class="card-text">${hour}:${min}:${sec} - ${datee}/${month + 1}/${year}</p>
         <button onclick='handleDelete(${post.createdAt})' class='btn btn-danger'>Delete</button>
-        <button class='btn btn-success'>Edit</button>
+        <button onclick='handleEditId(${post.createdAt})' type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editPost"> Edit </button>
         </div>
         
         </div>
@@ -37,9 +40,31 @@ if (posts) {
 }
 
 function handleDelete(id) {
-   let permission =  confirm('do you really want to delete this post?')
-   if(!permission) return
-   console.log(permission)
 
+    let permission = confirm('do you really want to delete this post?')
+    if (!permission) return
 
+    posts = posts.filter((post) => post.createdAt !== id)
+    // console.log(specificPost)
+
+    localStorage.setItem('LocalPostStorage', JSON.stringify(posts))
+
+    window.location.reload()
+
+}
+let editId = null
+let specificPost;
+function handleEditId(id) {
+    editId = id
+    specificPost = userPosts.find((post) => post.createdAt === id)
+    editTitle.value = specificPost.title
+    editImage.value = specificPost.image
+    editDescription.value = specificPost.description
+}
+function updatePost() {
+    specificPost.title = editTitle.value
+    specificPost.image = editImage.value
+    specificPost.description = editDescription.value
+    localStorage.setItem('LocalPostStorage', JSON.stringify(posts))
+    location.reload()
 }
